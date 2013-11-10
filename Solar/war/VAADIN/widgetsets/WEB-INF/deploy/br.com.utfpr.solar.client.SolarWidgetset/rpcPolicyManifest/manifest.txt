@@ -1,2 +1,0 @@
-# Module br.com.utfpr.solar.client.SolarWidgetset
-# RPC service class, partial path of RPC policy file
