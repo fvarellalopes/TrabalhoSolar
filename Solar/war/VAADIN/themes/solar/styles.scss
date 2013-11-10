@@ -4,6 +4,6 @@
 /* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
 /* The actual styles should be defined in solar.scss */
 .solar {
-  @include addons;
+  @include addons;    
   @include solar;
 }
