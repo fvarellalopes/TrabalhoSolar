@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import javax.servlet.annotation.WebServlet;
 
+import br.edu.utfpr.fernandolopes.solar.ds.SolarJPAContainer;
+import br.edu.utfpr.fernandolopes.solar.entity.Pergunta;
+import br.edu.utfpr.fernandolopes.solar.ui.PerguntaEdit;
+import br.edu.utfpr.fernandolopes.solar.ui.PerguntaView;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.data.util.BeanItemContainer;
@@ -11,6 +16,10 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.themes.Runo;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
@@ -19,31 +28,7 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 @Theme("solar")
 public class SolarUI extends UI {
-	public class Bean implements Serializable { 
-	    String name; 
-	    double energy; // Energy content in kJ/100g 
-	     
-	    public Bean(String name, double energy) { 
-	        this.name   = name; 
-	        this.energy = energy; 
-	    } 
-	     
-	    public String getName() { 
-	        return name; 
-	    } 
-	     
-	    public void setName(String name) { 
-	        this.name = name; 
-	    } 
-	     
-	    public double getEnergy() { 
-	        return energy; 
-	    } 
-	     
-	    public void setEnergy(double energy) { 
-	        this.energy = energy; 
-	    } 
-	} 
+
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = SolarUI.class)
 	public static class Servlet extends VaadinServlet {
@@ -51,25 +36,60 @@ public class SolarUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		final VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(true);
-		setContent(layout);
+		SolarJPAContainer<Pergunta> container = new SolarJPAContainer<Pergunta>(
+				Pergunta.class);
+		PerguntaView perg = new PerguntaView(container);
 
-	
-		BeanItemContainer<Bean> beans = 
-		    new BeanItemContainer<Bean>(Bean.class); 
-		     
-		// Add some beans to it 
-		beans.addBean(new Bean("Mung bean",   1452.0)); 
-		beans.addBean(new Bean("Chickpea",    686.0)); 
-		beans.addBean(new Bean("Lentil",      1477.0)); 
-		beans.addBean(new Bean("Common bean", 129.0)); 
-		beans.addBean(new Bean("Soybean",     1866.0)); 
-		 
-		// Bind a table to it 
-		Table table = new Table("Beans of All Sorts", beans); 
-		table.setEditable(true);
-		layout.addComponent(table); 
+		VerticalLayout content = new VerticalLayout();
+		content.setSizeFull();
+		setContent(content);
+
+		VerticalLayout vertical = putAllOnVertical(perg,
+				buildBarButtons(container));
+		content.addComponent(vertical);
+		content.setComponentAlignment(vertical, Alignment.MIDDLE_CENTER);
+
+	}private VerticalLayout putAllOnVertical(Component... components) {
+    	VerticalLayout vertical = new VerticalLayout();
+    	for (Component c: components) {
+    		if (c != null) {
+    			vertical.addComponent(c);
+        		vertical.setComponentAlignment(c, Alignment.MIDDLE_CENTER);
+    		}
+    	}
+    	return vertical;
+    }
+
+	private HorizontalLayout buildBarButtons(
+			final SolarJPAContainer<Pergunta> datasource) {
+		Button bIncluir = new Button("Incluir");
+		bIncluir.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				PerguntaEdit window = new PerguntaEdit(datasource);
+				window.create();
+			}
+		});
+
+		Button bAtualizar = new Button("Atualizar");
+		bAtualizar.addClickListener(new Button.ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) {
+				datasource.refresh();
+			}
+		});
+
+		Button[] buttons = { bIncluir, bAtualizar };
+		HorizontalLayout barButton = new HorizontalLayout();
+		barButton.setHeight("50");
+
+		for (Button b : buttons) {
+			b.setStyleName(Runo.BUTTON_BIG);
+			barButton.addComponent(b);
+			barButton.setComponentAlignment(b, Alignment.MIDDLE_CENTER);
+		}
+
+		return barButton;
 	}
 
 }
