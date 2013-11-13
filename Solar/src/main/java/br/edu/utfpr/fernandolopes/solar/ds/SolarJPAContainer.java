@@ -1,7 +1,5 @@
 package br.edu.utfpr.fernandolopes.solar.ds;
 
-import java.io.Serializable;
-
 import javax.persistence.EntityManager;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;

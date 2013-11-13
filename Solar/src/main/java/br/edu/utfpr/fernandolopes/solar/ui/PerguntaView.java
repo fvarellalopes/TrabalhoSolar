@@ -4,12 +4,7 @@ import br.edu.utfpr.fernandolopes.solar.ds.SolarJPAContainer;
 import br.edu.utfpr.fernandolopes.solar.entity.Pergunta;
 
 import com.vaadin.event.ItemClickEvent;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Table;
-import com.vaadin.ui.themes.Runo;
 
 public class PerguntaView extends Table  {
 

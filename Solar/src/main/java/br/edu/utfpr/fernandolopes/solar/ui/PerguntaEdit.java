@@ -1,10 +1,10 @@
 package br.edu.utfpr.fernandolopes.solar.ui;
 
-import org.vaadin.dialogs.ConfirmDialog;
-import org.vaadin.easyuploads.UploadField;
-
 import br.edu.utfpr.fernandolopes.solar.ds.SolarJPAContainer;
 import br.edu.utfpr.fernandolopes.solar.entity.Pergunta;
+
+import org.vaadin.dialogs.ConfirmDialog;
+import org.vaadin.easyuploads.UploadField;
 
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
