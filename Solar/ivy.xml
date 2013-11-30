@@ -27,7 +27,7 @@
 
 		<!-- Push support -->
 		<dependency org="com.vaadin" name="vaadin-push" rev="&vaadin.version;" />
-
+<dependency org="org.vaadin.addons" name="dragdroplayouts" rev="1.0" />
 		<!-- Servlet 3.0 API -->
 
 		<!-- Precompiled DefaultWidgetSet -->
@@ -45,6 +45,6 @@
 			rev="&vaadin.version;" conf="widgetset-compile->default" />
 		<dependency org="com.vaadin.addon" name="jpacontainer" rev="3.1.1"
 			conf="widgetset-compile->default" />
-	</dependencies>
+	</dependencies> 
 
 </ivy-module>

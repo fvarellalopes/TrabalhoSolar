@@ -214,3 +214,6 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 /Solar2/target/
+/CadProdutos/nbproject/private/
+/AD/nbproject/private/
+/AvaliacaoAICS27112013/nbproject/private/

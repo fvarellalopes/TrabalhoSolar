@@ -4,7 +4,7 @@
 	<groupId>br.edu.utfpr.fernandolopes</groupId>
 	<artifactId>solar</artifactId>
 	<packaging>war</packaging>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>Solar</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -61,7 +61,6 @@
 		<pluginRepository>
 			<id>codehaus-snapshots</id>
 			<url>[http://nexus.codehaus.org/snapshots</url>
-
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -166,6 +165,9 @@
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.4</version>
 						<configuration>
+							<webResources>
+								<resource>/webapps</resource>
+							</webResources>
 							<warName>ROOT</warName>
 						</configuration>
 					</plugin>
@@ -175,8 +177,52 @@
 	</profiles>
 
 	<build>
+		<finalName>ROOT</finalName>
+
+		<resources>
+
+			<resource>
+				<directory>${basedir}/webapps</directory>
+			</resource>
+		</resources>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>com.vaadin</groupId>
+					<artifactId>vaadin-maven-plugin</artifactId>
+					<version>${vaadin.plugin.version}</version>
+					<configuration>
+						<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+						<!-- <runTarget>mobilemail</runTarget> -->
+						<!-- We are doing "inplace" but into subdir VAADIN/widgetsets. This 
+							way compatible with Vaadin eclipse plugin. -->
+						<webappDirectory>${basedir}/webapps/VAADIN/widgetsets
+						</webappDirectory>
+						<hostedWebapp>${basedir}/webapps/VAADIN/widgetsets
+						</hostedWebapp>
+						<noServer>true</noServer>
+						<!-- Remove draftCompile when project is ready -->
+						<draftCompile>false</draftCompile>
+						<compileReport>true</compileReport>
+						<style>OBF</style>
+						<strict>true</strict>
+						<runTarget>http://localhost:8080/</runTarget>
+					</configuration>
+					<executions>
+						<execution>
+							<configuration>
+								<!-- if you don't specify any modules, the plugin will find them -->
+								<!-- <modules> <module>com.vaadin.demo.mobilemail.gwt.ColorPickerWidgetSet</module> 
+									</modules> -->
+							</configuration>
+							<goals>
+								<goal>resources</goal>
+								<goal>update-widgetset</goal>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
