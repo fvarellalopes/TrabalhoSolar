@@ -15,7 +15,14 @@
      Multiple browsers can be specified as a comma separated list. The
      supported user agents at the moment of writing were:
      ie8,ie9,gecko1_8,safari,opera
-
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-install-plugin:2.3.1:install (default-install) on project SolarTeacher: 
+Execution default-install of goal org.apache.maven.plugins:maven-install-plugin:2.3.1:install failed: 
+Plugin org.apache.maven.plugins:maven-install-plugin:2.3.1 or one of its dependencies could not be resolved: 
+Failed to collect dependencies for org.apache.maven.plugins:maven-install-plugin:jar:2.3.1 (): 
+Failed to read artifact descriptor for org.codehaus.plexus:plexus-digest:jar:1.0: 
+Could not transfer artifact org.codehaus.plexus:plexus-digest:pom:1.0 from/to central (http://repo.maven.apache.org/maven2):
+ Failed to create a selector. to http://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.pom: 
+ Unable to establish loopback connection: Connection timed out: connect -> [Help 1]
      The value gecko1_8 is used for Firefox and safari is used for webkit
      based browsers including Google Chrome.
     -->

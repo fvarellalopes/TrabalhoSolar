@@ -9,4 +9,13 @@
   @include reindeer;
 
   /* Insert your theme rules here */
+  
+ .dock_bottom {
+        position: fixed;
+        bottom: 0;
+        display: block;
+        left: 50%;
+        right: 50%;
+        margin-left: -25px;
+}
 }
